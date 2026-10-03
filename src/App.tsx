@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// Dados fictícios para versão pública do portfólio
+// Dados fictícios para a versão pública do portfólio
 const GOOGLE_MAPS_URL =
   "https://www.google.com/maps/dir/?api=1&destination=-23.550520,-46.633308";
 
@@ -120,6 +120,21 @@ export default function App() {
                 Um dia cheio de aventura, alegria e diversão para celebrar os{" "}
                 <strong>2 aninhos do Caleb.</strong>
               </p>
+            </div>
+          </div>
+
+          <div
+            className="event-schedule"
+            aria-label="Data e horário da festa"
+          >
+            <div className="schedule-item">
+              <span>DATA DA FESTA</span>
+              <strong>24/10</strong>
+            </div>
+
+            <div className="schedule-item">
+              <span>HORÁRIO</span>
+              <strong>19:30</strong>
             </div>
           </div>
 
