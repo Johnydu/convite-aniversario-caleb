@@ -1,9 +1,16 @@
 import { useState } from "react";
 
-const GOOGLE_MAPS_URL = "https://www.google.com/maps/dir/?api=1&destination=-20.7777299,-49.3654987";
-const WAZE_URL = "https://www.waze.com/ul?ll=-20.7777299%2C-49.3654987&navigate=yes";
-const WHATSAPP_GROUP_URL = "https://chat.whatsapp.com/LGdMxEYQ4nc3M3cw60zpQD?s=sw&p=a&mlu=4&iam=0";
-const WHATSAPP_CONTACT_NUMBER = "5517991947301";
+// Dados fictícios para versão pública do portfólio
+const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/dir/?api=1&destination=-23.550520,-46.633308";
+
+const WAZE_URL =
+  "https://www.waze.com/ul?ll=-23.550520%2C-46.633308&navigate=yes";
+
+const WHATSAPP_GROUP_URL =
+  "https://chat.whatsapp.com/EXEMPLO-LINK-GRUPO";
+
+const WHATSAPP_CONTACT_NUMBER = "5511999999999";
 
 function PinIcon() {
   return (
@@ -58,7 +65,9 @@ export default function App() {
       "Estamos animados para comemorar com vocês! 💙",
     ].join("\n");
 
-    const privateMessageUrl = `https://wa.me/${WHATSAPP_CONTACT_NUMBER}?text=${encodeURIComponent(message)}`;
+    const privateMessageUrl =
+      `https://wa.me/${WHATSAPP_CONTACT_NUMBER}?text=${encodeURIComponent(message)}`;
+
     window.open(privateMessageUrl, "_blank", "noopener,noreferrer");
   };
 
@@ -75,24 +84,42 @@ export default function App() {
             <span className="mini-mushroom" aria-hidden="true" />
             <span>SUPER FESTA</span>
           </div>
+
           <span className="level-label">FASE 02</span>
         </header>
 
         <section className="scene-wrap">
           <AnimatedPartyScene />
+
           <div className="birthday-title">
             <span>Caleb faz</span>
-            <strong><i>2</i> anos!</strong>
+            <strong>
+              <i>2</i> anos!
+            </strong>
           </div>
         </section>
 
         <section className="invite-content">
           <div className="intro-copy">
-            <span className="question-block" aria-hidden="true">?</span>
+            <span className="question-block" aria-hidden="true">
+              ?
+            </span>
+
             <div>
-              <p className="mission-kicker">MISSÃO ESPECIAL DESBLOQUEADA</p>
-              <h1>Venha comemorar<br />com a gente!</h1>
-              <p className="lead">Um dia cheio de aventura, alegria e diversão para celebrar os <strong>2 aninhos do Caleb.</strong></p>
+              <p className="mission-kicker">
+                MISSÃO ESPECIAL DESBLOQUEADA
+              </p>
+
+              <h1>
+                Venha comemorar
+                <br />
+                com a gente!
+              </h1>
+
+              <p className="lead">
+                Um dia cheio de aventura, alegria e diversão para celebrar os{" "}
+                <strong>2 aninhos do Caleb.</strong>
+              </p>
             </div>
           </div>
 
@@ -101,16 +128,27 @@ export default function App() {
               <span className="flower-head">●</span>
               <span className="flower-stem" />
             </div>
+
             <div>
-              <span className="info-kicker">CHURRASCO NO ESTILO SACOLINHA</span>
+              <span className="info-kicker">
+                CHURRASCO NO ESTILO SACOLINHA
+              </span>
+
               <h2>Traga sua carne e bebida preferidas!</h2>
-              <p>Vamos curtir juntos esse momento especial com muita conversa boa, diversão e comida gostosa.</p>
+
+              <p>
+                Vamos curtir juntos esse momento especial com muita conversa
+                boa, diversão e comida gostosa.
+              </p>
             </div>
           </div>
 
           <section className="rsvp-box">
             <div className="rsvp-heading">
-              <span className="pixel-heart" aria-hidden="true">♥</span>
+              <span className="pixel-heart" aria-hidden="true">
+                ♥
+              </span>
+
               <div>
                 <span>CONFIRME SUA PRESENÇA</span>
                 <h2>Quantos jogadores vêm?</h2>
@@ -118,25 +156,55 @@ export default function App() {
             </div>
 
             <div className="counters">
-              <Counter label="Adultos" value={adults} setValue={setAdults} />
-              <Counter label="Crianças" value={children} setValue={setChildren} />
+              <Counter
+                label="Adultos"
+                value={adults}
+                setValue={setAdults}
+              />
+
+              <Counter
+                label="Crianças"
+                value={children}
+                setValue={setChildren}
+              />
             </div>
           </section>
 
           <div className="main-actions">
-            <button className="game-button whatsapp-button" onClick={openPrivateConfirmation}>
-              <span className="button-icon"><WhatsAppIcon /></span>
+            <button
+              className="game-button whatsapp-button"
+              onClick={openPrivateConfirmation}
+            >
+              <span className="button-icon">
+                <WhatsAppIcon />
+              </span>
+
               <span>
                 <small>ENVIAR NO PRIVADO</small>
                 Confirmar presença
               </span>
+
               <b>›</b>
             </button>
-            <a className="game-button group-button" href={WHATSAPP_GROUP_URL} target="_blank" rel="noreferrer">
-              <span className="button-icon"><GroupIcon /></span>
-              <span><small>ENTRAR E PARTICIPAR</small>Grupo do aniversário</span>
+
+            <a
+              className="game-button group-button"
+              href={WHATSAPP_GROUP_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="button-icon">
+                <GroupIcon />
+              </span>
+
+              <span>
+                <small>ENTRAR E PARTICIPAR</small>
+                Grupo do aniversário
+              </span>
+
               <b>›</b>
             </a>
+
             <button
               className="game-button location-button"
               type="button"
@@ -144,17 +212,34 @@ export default function App() {
               aria-controls="map-options"
               onClick={() => setShowMapOptions((visible) => !visible)}
             >
-              <span className="button-icon"><PinIcon /></span>
-              <span><small>COMO CHEGAR</small>Abrir localização</span>
+              <span className="button-icon">
+                <PinIcon />
+              </span>
+
+              <span>
+                <small>COMO CHEGAR</small>
+                Abrir localização
+              </span>
+
               <b>{showMapOptions ? "−" : "›"}</b>
             </button>
+
             {showMapOptions && (
               <div className="map-options" id="map-options">
-                <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer">
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <strong>Google Maps</strong>
                   <span>Abrir rota</span>
                 </a>
-                <a href={WAZE_URL} target="_blank" rel="noreferrer">
+
+                <a
+                  href={WAZE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <strong>Waze</strong>
                   <span>Iniciar navegação</span>
                 </a>
@@ -165,24 +250,49 @@ export default function App() {
 
         <footer className="card-footer">
           <span className="pixel-star">★</span>
+
           <p>Esperamos vocês para essa aventura!</p>
+
           <span className="pixel-star">★</span>
         </footer>
       </article>
 
-      <p className="page-note">Prepare-se para uma fase inesquecível.</p>
+      <p className="page-note">
+        Prepare-se para uma fase inesquecível.
+      </p>
     </main>
   );
 }
 
-function Counter({ label, value, setValue }: { label: string; value: number; setValue: (value: number) => void }) {
+function Counter({
+  label,
+  value,
+  setValue,
+}: {
+  label: string;
+  value: number;
+  setValue: (value: number) => void;
+}) {
   return (
     <div className="counter">
       <span>{label}</span>
+
       <div>
-        <button onClick={() => setValue(Math.max(0, value - 1))} aria-label={`Diminuir ${label}`}>−</button>
+        <button
+          onClick={() => setValue(Math.max(0, value - 1))}
+          aria-label={`Diminuir ${label}`}
+        >
+          −
+        </button>
+
         <strong>{value}</strong>
-        <button onClick={() => setValue(Math.min(20, value + 1))} aria-label={`Aumentar ${label}`}>+</button>
+
+        <button
+          onClick={() => setValue(Math.min(20, value + 1))}
+          aria-label={`Aumentar ${label}`}
+        >
+          +
+        </button>
       </div>
     </div>
   );
