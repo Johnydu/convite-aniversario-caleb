@@ -1,0 +1,11 @@
+{
+  "title": "CONVITE ANIVESÁRIO CALEB 2 ANOS",
+  "description": "Create interactive birthday invitations that engage guests with personalized designs and RSVP features, perfect for any celebration.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
