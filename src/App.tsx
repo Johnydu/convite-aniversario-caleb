@@ -1,16 +1,8 @@
 import { useState } from "react";
+import PartyScene from "./PartyScene";
+import { formatDate, party, weekday } from "./config";
 
-// Dados fictícios para a versão pública do portfólio
-const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/dir/?api=1&destination=-23.550520,-46.633308";
-
-const WAZE_URL =
-  "https://www.waze.com/ul?ll=-23.550520%2C-46.633308&navigate=yes";
-
-const WHATSAPP_GROUP_URL =
-  "https://chat.whatsapp.com/EXEMPLO-LINK-GRUPO";
-
-const WHATSAPP_CONTACT_NUMBER = "5511999999999";
+const MAX_GUESTS = 20;
 
 function PinIcon() {
   return (
@@ -18,16 +10,6 @@ function PinIcon() {
       <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
       <circle cx="12" cy="10" r="2.5" />
     </svg>
-  );
-}
-
-function AnimatedPartyScene() {
-  return (
-    <img
-      className="game-scene animated-party-scene"
-      src="/super-mario-world.jpg"
-      alt="Mario voando por uma fase de Super Mario World"
-    />
   );
 }
 
@@ -55,9 +37,12 @@ export default function App() {
   const [children, setChildren] = useState(0);
   const [showMapOptions, setShowMapOptions] = useState(false);
 
+  const ageLabel = party.age === 1 ? "ano" : "anos";
+  const ageDiminutive = party.age === 1 ? "aninho" : "aninhos";
+
   const openPrivateConfirmation = () => {
     const message = [
-      "Olá! Confirmo minha presença no aniversário de 2 anos do Caleb! 🎉",
+      `Olá! Confirmo minha presença no aniversário de ${party.age} ${ageLabel} do ${party.childName}! 🎉`,
       "",
       `👨 Adultos: ${adults}`,
       `👧 Crianças: ${children}`,
@@ -65,8 +50,7 @@ export default function App() {
       "Estamos animados para comemorar com vocês! 💙",
     ].join("\n");
 
-    const privateMessageUrl =
-      `https://wa.me/${WHATSAPP_CONTACT_NUMBER}?text=${encodeURIComponent(message)}`;
+    const privateMessageUrl = `https://wa.me/${party.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(privateMessageUrl, "_blank", "noopener,noreferrer");
   };
@@ -85,18 +69,20 @@ export default function App() {
             <span>SUPER FESTA</span>
           </div>
 
-          <span className="level-label">FASE 02</span>
+          <span className="level-label">
+            FASE {String(party.age).padStart(2, "0")}
+          </span>
         </header>
 
         <section className="scene-wrap">
-          <AnimatedPartyScene />
+          <PartyScene age={party.age} />
 
-          <div className="birthday-title">
-            <span>Caleb faz</span>
+          <h1 className="birthday-title">
+            <span>{party.childName} faz</span>
             <strong>
-              <i>2</i> anos!
+              <i>{party.age}</i> {ageLabel}!
             </strong>
-          </div>
+          </h1>
         </section>
 
         <section className="invite-content">
@@ -106,35 +92,39 @@ export default function App() {
             </span>
 
             <div>
-              <p className="mission-kicker">
-                MISSÃO ESPECIAL DESBLOQUEADA
-              </p>
+              <p className="mission-kicker">MISSÃO ESPECIAL DESBLOQUEADA</p>
 
-              <h1>
+              <h2 className="intro-title">
                 Venha comemorar
                 <br />
                 com a gente!
-              </h1>
+              </h2>
 
               <p className="lead">
                 Um dia cheio de aventura, alegria e diversão para celebrar os{" "}
-                <strong>2 aninhos do Caleb.</strong>
+                <strong>
+                  {party.age} {ageDiminutive} do {party.childName}.
+                </strong>
               </p>
             </div>
           </div>
 
-          <div
-            className="event-schedule"
-            aria-label="Data e horário da festa"
-          >
+          <div className="event-schedule" aria-label="Data e horário da festa">
             <div className="schedule-item">
-              <span>DATA DA FESTA</span>
-              <strong>24/10</strong>
+              <span>
+                DATA DA FESTA
+                <small>{weekday(party.date)}</small>
+              </span>
+              <strong>
+                <time dateTime={party.date}>{formatDate(party.date)}</time>
+              </strong>
             </div>
 
             <div className="schedule-item">
               <span>HORÁRIO</span>
-              <strong>19:30</strong>
+              <strong>
+                <time dateTime={party.time}>{party.time}</time>
+              </strong>
             </div>
           </div>
 
@@ -145,9 +135,7 @@ export default function App() {
             </div>
 
             <div>
-              <span className="info-kicker">
-                CHURRASCO NO ESTILO SACOLINHA
-              </span>
+              <span className="info-kicker">CHURRASCO NO ESTILO SACOLINHA</span>
 
               <h2>Traga sua carne e bebida preferidas!</h2>
 
@@ -158,7 +146,7 @@ export default function App() {
             </div>
           </div>
 
-          <section className="rsvp-box">
+          <section className="rsvp-box" aria-labelledby="rsvp-title">
             <div className="rsvp-heading">
               <span className="pixel-heart" aria-hidden="true">
                 ♥
@@ -166,28 +154,20 @@ export default function App() {
 
               <div>
                 <span>CONFIRME SUA PRESENÇA</span>
-                <h2>Quantos jogadores vêm?</h2>
+                <h2 id="rsvp-title">Quantos jogadores vêm?</h2>
               </div>
             </div>
 
             <div className="counters">
-              <Counter
-                label="Adultos"
-                value={adults}
-                setValue={setAdults}
-              />
-
-              <Counter
-                label="Crianças"
-                value={children}
-                setValue={setChildren}
-              />
+              <Counter label="Adultos" value={adults} min={1} setValue={setAdults} />
+              <Counter label="Crianças" value={children} min={0} setValue={setChildren} />
             </div>
           </section>
 
           <div className="main-actions">
             <button
               className="game-button whatsapp-button"
+              type="button"
               onClick={openPrivateConfirmation}
             >
               <span className="button-icon">
@@ -199,14 +179,14 @@ export default function App() {
                 Confirmar presença
               </span>
 
-              <b>›</b>
+              <b aria-hidden="true">›</b>
             </button>
 
             <a
               className="game-button group-button"
-              href={WHATSAPP_GROUP_URL}
+              href={party.whatsappGroupUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <span className="button-icon">
                 <GroupIcon />
@@ -217,7 +197,7 @@ export default function App() {
                 Grupo do aniversário
               </span>
 
-              <b>›</b>
+              <b aria-hidden="true">›</b>
             </a>
 
             <button
@@ -236,45 +216,37 @@ export default function App() {
                 Abrir localização
               </span>
 
-              <b>{showMapOptions ? "−" : "›"}</b>
+              <b aria-hidden="true">{showMapOptions ? "−" : "›"}</b>
             </button>
 
-            {showMapOptions && (
-              <div className="map-options" id="map-options">
-                <a
-                  href={GOOGLE_MAPS_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <strong>Google Maps</strong>
-                  <span>Abrir rota</span>
-                </a>
+            <div className="map-options" id="map-options" hidden={!showMapOptions}>
+              <a href={party.googleMapsUrl} target="_blank" rel="noopener noreferrer">
+                <strong>Google Maps</strong>
+                <span>Abrir rota</span>
+              </a>
 
-                <a
-                  href={WAZE_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <strong>Waze</strong>
-                  <span>Iniciar navegação</span>
-                </a>
-              </div>
-            )}
+              <a href={party.wazeUrl} target="_blank" rel="noopener noreferrer">
+                <strong>Waze</strong>
+                <span>Iniciar navegação</span>
+              </a>
+            </div>
           </div>
         </section>
 
         <footer className="card-footer">
-          <span className="pixel-star">★</span>
+          <span className="pixel-star" aria-hidden="true">
+            ★
+          </span>
 
           <p>Esperamos vocês para essa aventura!</p>
 
-          <span className="pixel-star">★</span>
+          <span className="pixel-star" aria-hidden="true">
+            ★
+          </span>
         </footer>
       </article>
 
-      <p className="page-note">
-        Prepare-se para uma fase inesquecível.
-      </p>
+      <p className="page-note">Prepare-se para uma fase inesquecível.</p>
     </main>
   );
 }
@@ -282,28 +254,34 @@ export default function App() {
 function Counter({
   label,
   value,
+  min,
   setValue,
 }: {
   label: string;
   value: number;
+  min: number;
   setValue: (value: number) => void;
 }) {
   return (
-    <div className="counter">
+    <div className="counter" role="group" aria-label={label}>
       <span>{label}</span>
 
       <div>
         <button
-          onClick={() => setValue(Math.max(0, value - 1))}
+          type="button"
+          onClick={() => setValue(Math.max(min, value - 1))}
+          disabled={value <= min}
           aria-label={`Diminuir ${label}`}
         >
           −
         </button>
 
-        <strong>{value}</strong>
+        <strong aria-live="polite">{value}</strong>
 
         <button
-          onClick={() => setValue(Math.min(20, value + 1))}
+          type="button"
+          onClick={() => setValue(Math.min(MAX_GUESTS, value + 1))}
+          disabled={value >= MAX_GUESTS}
           aria-label={`Aumentar ${label}`}
         >
           +

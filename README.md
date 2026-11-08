@@ -20,11 +20,11 @@ A aplicação foi desenvolvida com foco em **experiência do usuário, interativ
 
 ## 🖥️ Demonstração
 
-> 🚧 **Projeto em desenvolvimento**
+🔗 **Demo:** [johnydu.github.io/convite-aniversario-caleb](https://johnydu.github.io/convite-aniversario-caleb/)
 
-A versão publicada poderá ser acessada através do GitHub Pages após a configuração do deploy.
+![Tela inicial do convite: cena em pixel art com bandeirinhas, balões, uma criança de chapéu de festa e um bolo com o número 2, sob o título "Caleb faz 2 anos!"](docs/preview.webp)
 
-🔗 **Demo:** [Em breve]
+> A versão publicada usa dados fictícios (telefone, grupo e localização).
 
 ---
 
@@ -44,7 +44,7 @@ A versão publicada poderá ser acessada através do GitHub Pages após a config
 
 ### 🎮 Interface interativa
 
-Interface inspirada em jogos, com elementos visuais pixelados, animações e componentes interativos.
+Interface inspirada em jogos de plataforma, com uma cena em pixel art original desenhada em SVG, animações (que respeitam `prefers-reduced-motion`) e componentes interativos.
 
 ### ✅ Confirmação de presença
 
@@ -76,58 +76,51 @@ A interface foi desenvolvida para proporcionar uma boa experiência em diferente
 
 ```text
 convite-aniversario-caleb/
-├── public/
-│   └── assets/
-│
+├── .github/workflows/pages.yml   # build e publicação no GitHub Pages
+├── docs/preview.webp             # captura usada no README
+├── public/favicon.svg
 ├── src/
-│   ├── App.tsx
-│   ├── App.css
-│   └── ...
-│
+│   ├── App.tsx                   # convite e confirmação de presença
+│   ├── PartyScene.tsx            # cena em pixel art (SVG)
+│   ├── config.ts                 # dados da festa (fictícios por padrão)
+│   ├── index.css
+│   └── main.tsx
+├── .env.example                  # variáveis para os dados reais
 ├── index.html
 ├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
+└── vite.config.ts
 ```
-
-> A estrutura pode variar de acordo com a versão exportada pelo Figma Make.
 
 ---
 
 ## ⚙️ Como executar localmente
 
-### 1. Clone o repositório
+O projeto usa **pnpm** (versão definida em `.mise.toml`).
 
 ```bash
 git clone https://github.com/Johnydu/convite-aniversario-caleb.git
-```
-
-### 2. Acesse a pasta
-
-```bash
 cd convite-aniversario-caleb
+pnpm install
+pnpm dev
 ```
 
-### 3. Instale as dependências
+### Usando dados reais
+
+Os dados da festa ficam em `src/config.ts`, com valores fictícios por padrão. Para gerar o convite de verdade sem expor nada no repositório, copie `.env.example` para `.env.local` e preencha:
 
 ```bash
-npm install
+cp .env.example .env.local
 ```
 
-### 4. Execute o projeto
+O `.env.local` é ignorado pelo git.
 
-```bash
-npm run dev
-```
+> As variáveis `VITE_*` vão para o JavaScript do site publicado. Use os dados reais só no build que você compartilha com os convidados, nunca no repositório público.
 
-### 5. Acesse no navegador
+---
 
-O Vite disponibilizará uma URL semelhante a:
+## 🚀 Publicação
 
-```text
-http://localhost:5173
-```
+A cada push na `main`, o workflow `.github/workflows/pages.yml` verifica os tipos, gera o build e publica em GitHub Pages.
 
 ---
 

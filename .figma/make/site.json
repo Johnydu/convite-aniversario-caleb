@@ -1,6 +1,10 @@
 {
-  "title": "CONVITE ANIVESÁRIO CALEB 2 ANOS",
-  "description": "Create interactive birthday invitations that engage guests with personalized designs and RSVP features, perfect for any celebration.",
+  "title": "Convite de aniversário — Caleb 2 anos",
+  "description": "Convite digital interativo com tema de jogo retrô: data, horário, confirmação de presença pelo WhatsApp e rota pelo Google Maps ou Waze.",
+  "language": "pt-BR",
+  "icons": {
+    "icon": "favicon.svg"
+  },
   "robots": {
     "index": false
   },
